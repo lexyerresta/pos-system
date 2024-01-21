@@ -23,6 +23,10 @@ class PenjualanHeader extends Model
         'grand_total'
     ];
 
+    protected $casts = [
+        'tgl_transaksi' => 'datetime', // This will cast tgl_transaksi to a Carbon instance
+    ];
+
     // Relasi dengan PenjualanHeaderDetail
     public function details()
     {

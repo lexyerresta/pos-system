@@ -3,15 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\MasterBarang;
+use App\Models\PenjualanHeader;
+use App\Models\Promo;
 use Illuminate\Http\Request;
 
 class PenjualanHeaderController extends Controller
 {
-    public function index()
+    public function indexCreate()
     {
-        $barang = MasterBarang::all();
-        return view('master_barang.index', compact('barang'));
+        $penjualanHeaders = PenjualanHeader::all();
+        $masterBarangs = MasterBarang::all();
+        $promos = Promo::all();
+        return view('penjualan_header.index_create', compact('penjualanHeaders', 'masterBarangs', 'promos'));
     }
 
-    // Metode lain untuk create, store, show, edit, update, destroy
+    public function store(Request $request)
+    {
+        // Include your logic to calculate totals and store the transaction
+        // For now, we'll just validate the request as an example
+        $validatedData = $request->validate([
+            // Validation rules
+        ]);
+
+        $penjualanHeader = PenjualanHeader::create($validatedData);
+        // You might want to store details separately in penjualan_header_detail
+        // ...
+
+        return redirect()->route('penjualan-header.index-create');
+    }
 }
